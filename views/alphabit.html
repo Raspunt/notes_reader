@@ -21,7 +21,7 @@
                 <div v-for="(item,i) in alphabet" :key="item.message" class="btn_list_colum">
                     
                     
-                    <button v-bind:id="i" @click="alphabet_id_send(i)">
+                    <button v-bind:id="i" @click="alphabet_id_send(item)">
                         {{ item }} 
                     </button>
                 </div>
@@ -34,9 +34,9 @@
 
                 <div class="list_notes">
 
-                    <div v-for="(item,i) in notes_list" :key="item.message" class="btn_list_colum">
+                    <div v-for="(item,i) in notes_list" :key="item.message" class="note_list_colum">
                     
-                        <button v-bind:id="i" @click="alphabet_id_send(i)">
+                        <button v-bind:id="i" @click="note_set_pdf(i)" class="note_btn">
                             {{ item }} 
                         </button>
                     </div>
@@ -44,7 +44,15 @@
 
                 </div>
 
-                <button>Open Pdf</button>
+                <!-- <input type="file"   style="display: none" v-model="upload_file"/>
+                <button @click="add_File">Open Pdf</button> -->
+                    
+                <form method="post" enctype="multipart/form-data">
+
+                    <input type="file"  name="upload_file" value=""  accept="application/pdf">
+                    <button type="submit" >upload pdf</button> 
+                    
+                </form>
 
             </div>
 
@@ -52,7 +60,7 @@
             <div class="reader_block">
 
             <object
-                data='https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf'
+            v-bind:data='current_pdf'
                 type="application/pdf"  
             >
         
@@ -65,7 +73,7 @@
     </div>
 
 
-    <script src="https://unpkg.com/vue@3"></script>
+    <script src="vue@3"></script>
 
     <script>
         let app = Vue.createApp({
@@ -74,7 +82,10 @@
                 return {
                     search_holder:"",
                     alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],
-                    notes_list:[]
+                    notes_list:[],
+                    current_pdf:"",
+                    upload_file:"",
+
                 }
             },
             methods:{
@@ -88,12 +99,33 @@
                     method: "POST",
                     headers: {'Content-Type': 'application/json'}, 
                     body: JSON.stringify(data)
-                    }).then(res => {
-                    console.log("Request complete! response:", res);
-                    });
+                    })
 
+                    .then((response) => {
+                        return response.json();
+                    })
+                    
+                    .then((res_data) => {
+
+                        this.notes_list = []
+
+                        for (let i = 0 ;i<res_data.length;i++){
+                            this.notes_list.push(res_data[i]["name"])
+                        }
+                    })
 
                     
+                },
+
+                note_set_pdf(note_id){
+                    
+                    this.current_pdf = this.notes_list[note_id]
+                  
+                },
+
+                
+                add_File(callback){
+                    console.log("ff");
                 },
 
                 send_search_holder(){
@@ -115,22 +147,12 @@
                     })
                     
                     .then((res_data) => {
-
+                        this.notes_list = []
                         for (let i = 0 ;i<res_data.length;i++){
-                            console.log(i);
-                            console.log(res_data[i]);
                             this.notes_list.push(res_data[i]["name"])
                         }
-
                     })
-
-
-
-
                 }
-
-                
-
             }
     })
 

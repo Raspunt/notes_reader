@@ -29,7 +29,6 @@ let DbCon = class {
         let sql = `CREATE TABLE IF NOT EXISTS  notes (
             id MEDIUMINT NOT NULL AUTO_INCREMENT,
             name VARCHAR(100) NOT NULL,
-            file_link VARCHAR(100) NOT NULL,
             PRIMARY KEY (id)
 
         )`
@@ -43,12 +42,12 @@ let DbCon = class {
     }
 
 
-    Insert(con,name,file_link){
+    Insert(con,name){
 
 
         let sql = `
-        INSERT INTO notes (name, file_link)
-        VALUES ('${name}','${file_link}');
+        INSERT INTO notes (name)
+        VALUES ('${name}');
         `
 
         con.query(sql, function (err, result) {
@@ -98,12 +97,11 @@ module.exports = DbCon;
 
 
 // db = new DbCon()
-
-
 // con = db.Connect()
-
 // db.CreateTable(con)
-// // db.Insert(con,"Here Come the Sun",`kekw.pwf`)
+
+// db.Insert(con,"Here Come the Sun",`Here_come_the_sun.pdf`)
+
 
 // db.find_note_by_name(con,"h")
 

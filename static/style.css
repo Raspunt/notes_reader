@@ -68,3 +68,14 @@
     background-color: papayawhip; 
     margin: 0 auto;
 }
+
+
+.note_list_colum{
+    display: flex;
+    flex-direction: row;
+}
+
+.note_btn{
+    background-color: rgba(233, 152, 3, 0.61);
+    font-size: 22px;
+}
