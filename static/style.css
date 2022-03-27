@@ -1,0 +1,70 @@
+
+.login_input{
+    margin: 5px;
+}
+
+.center_container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+
+.flex_login{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    align-items: center;
+    
+}
+
+.flex_login button{
+
+    width: 100px;
+    padding: 10px;
+    margin-top: 10px;
+
+}
+
+
+[v-cloak]{
+    display:none;
+}
+
+
+
+.btn_list_colum button{
+    
+    width: 100px;
+}
+
+
+.container_row_alphabit{
+    display: flex;
+    flex-direction: column;
+}
+
+.container_main{
+    display: flex;
+    flex-direction: row;
+}
+
+.list_notes{
+    background-color: brown;
+    height: 100%;
+}
+
+.reader_block object{
+    width: 90vw;
+    height:1500px ;
+
+
+}
+
+.body {
+    min-height: 100vh;
+    max-width: 400px;
+    background-color: papayawhip; 
+    margin: 0 auto;
+}

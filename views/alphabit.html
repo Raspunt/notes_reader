@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>alphabit render</title>
+</head>
+<body>
+
+    <div id="app" v-cloak>
+
+        <div class="container_main">
+
+
+            <div class="container_row_alphabit">
+
+        
+                <div v-for="(item,i) in alphabet" :key="item.message" class="btn_list_colum">
+                    
+                    
+                    <button v-bind:id="i" @click="alphabet_id_send(i)">
+                        {{ item }} 
+                    </button>
+                </div>
+                
+            </div>
+
+
+            <div class="search_block">
+                <input type="text" placeholder="search notes" v-model="search_holder" @change="send_search_holder()">
+
+                <div class="list_notes">
+
+                    <div v-for="(item,i) in notes_list" :key="item.message" class="btn_list_colum">
+                    
+                        <button v-bind:id="i" @click="alphabet_id_send(i)">
+                            {{ item }} 
+                        </button>
+                    </div>
+
+
+                </div>
+
+                <button>Open Pdf</button>
+
+            </div>
+
+
+            <div class="reader_block">
+
+            <object
+                data='https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf'
+                type="application/pdf"  
+            >
+        
+
+            </div>
+
+            
+        </div>
+
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script>
+        let app = Vue.createApp({
+            
+            data() {
+                return {
+                    search_holder:"",
+                    alphabet: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],
+                    notes_list:[]
+                }
+            },
+            methods:{
+
+                alphabet_id_send(alphabet_id){
+
+                    
+                    let data = {alphabet_id: alphabet_id};
+
+                    fetch("/alphabet_id", {
+                    method: "POST",
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify(data)
+                    }).then(res => {
+                    console.log("Request complete! response:", res);
+                    });
+
+
+                    
+                },
+
+                send_search_holder(){
+                    console.log(this.search_holder);
+
+                    let data = {search_holder: this.search_holder};
+
+                    fetch("/search_holder", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }, 
+                    body: JSON.stringify(data)
+                    })
+                    
+                    .then((response) => {
+                        return response.json();
+                    })
+                    
+                    .then((res_data) => {
+
+                        for (let i = 0 ;i<res_data.length;i++){
+                            console.log(i);
+                            console.log(res_data[i]);
+                            this.notes_list.push(res_data[i]["name"])
+                        }
+
+                    })
+
+
+
+
+                }
+
+                
+
+            }
+    })
+
+    app.mount('#app')
+
+
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Vue</title>
+</head>
+<body>
+    
+    <div id="app" v-cloak>
+        <div class="center_container">
+
+            <h2>{{ message }}</h2>
+            
+            <login-form>
+            
+            
+            
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script>
+
+
+    let app = Vue.createApp({
+    data() {
+        return {
+            message: "Login screen"
+        }
+    }
+    })
+
+
+    app.component("login-form",{
+
+        data(){
+            return{
+                email:"",
+                password:""
+            }
+        },
+
+        template:`
+
+            <form class="flex_login" @submit.prevent="handleSubmit">
+
+                <h1>{{ title }}</h1>
+                <input v-model="email" class="login_input" type="text">
+                <input v-model="password" class="login_input" type="password">
+                <button type="submit">Submit</button>
+            
+            </form>
+
+
+        `,methods:{
+            handleSubmit(){
+                console.log(this.email + " " + this.password);
+                window.location.href = "/alphabit.html"
+            }
+        }
+    })
+
+  
+app.mount('#app')
+</script>
+
+
+    
+
+</body>
+</html>
