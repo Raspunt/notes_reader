@@ -37,9 +37,20 @@ let DbCon = class {
             if (err) throw err;
             console.log("Table created");
         });
+    }
+
+    CreateDatabase(con){
+
+        let sql = `create database if not exists  musicDb ;`
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("database created");
+        });
 
 
     }
+
 
 
     Insert(con,name){

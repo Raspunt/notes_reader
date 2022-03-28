@@ -1,7 +1,6 @@
 let express = require('express');
 let path = require("path")
 let app = express();
-let pug = require('pug')
 let bodyParser = require('body-parser');
 let DbCon = require("./dbCon");
 let fileupload = require("express-fileupload");
@@ -15,6 +14,8 @@ app.use(fileupload());
 
 db = new DbCon()
 con = db.Connect()
+db.CreateTable(con)
+db.CreateDatabase(con)
 
 
 app.get('/', function (req, res) {
