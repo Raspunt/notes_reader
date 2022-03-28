@@ -86,3 +86,20 @@ app.post("/search_holder",(req,res)=>{
  
 
 })
+
+
+
+app.post("/get_all_notes",(req,res)=>{
+   
+
+   db.Get_all_notes(con,(result)=>{
+ 
+      const res_data = Object.values(JSON.parse(JSON.stringify(result)));
+      
+
+      res.json(res_data)
+
+
+      
+   });
+})

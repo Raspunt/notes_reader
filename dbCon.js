@@ -69,14 +69,14 @@ let DbCon = class {
 
     }
 
-    Get_all_notes(con){
+    Get_all_notes(con,callback){
 
         let sql = "SELECT * FROM notes"
 
 
         con.query(sql, function (err, result, fields) {
             if (err) throw err;
-            console.log(result);
+            return callback(result)
         });
 
     }
