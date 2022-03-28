@@ -1,9 +1,10 @@
 
 
-нужна nodejs версии 12
-и mysql-server version: 8.0.28-0ubuntu0.20.04.3
+nodejs версии 12
+mysql-server version: 8.0.28-0ubuntu0.20.04.3
 
-и npm (в Windows он устанавливаеться вместе с nodejs , в linux надо доустанавливать)
+
+нужно установить npm (в Windows он устанавливаеться вместе с nodejs , в linux надо доустанавливать)
 
 
 что бы установить библиотеки нужно написать в консоли на уровне вместе с package.json 
